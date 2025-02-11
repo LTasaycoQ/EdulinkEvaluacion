@@ -1,24 +1,21 @@
 import os
-import psycopg2
 from flask import Flask, send_file, request, render_template, redirect, url_for, flash, session
+from database.db import verificacionLogin, nueva_Cuenta
 
 app = Flask(__name__, template_folder='src')
-
-app.secret_key = os.urandom(24)  # Necesario para usar sesiones y flash
-
-# URL de conexión a la base de datos (necesitarás reemplazarla si cambia)
-DB_URL = "postgresql://neondb_owner:npg_ZdmSnuWj9e4x@ep-cold-dust-a88j4gh3-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&options=endpoint%3Dep-purple-snow-a5b2y909"
+app.secret_key = os.urandom(24) 
 
 @app.route("/")
 def index():
-    return send_file('src/index.html')
+    return render_template('index.html')
 
-@app.route("/Perfil")
+@app.route("/perfil")
 def perfil():
-    # Verificar si el usuario está autenticado
     if 'user' not in session:
-        return redirect(url_for('index'))  # Redirige al login si no está autenticado
-    return send_file('src/perfil.html')
+        return redirect(url_for('index'))
+    return render_template('perfil.html')
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -26,26 +23,35 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        try:
-            connection = psycopg2.connect(DB_URL)
-            cursor = connection.cursor()
-            cursor.execute("SELECT * FROM person WHERE email = %s AND password = %s", (email, password))
-            user = cursor.fetchone()
+        user = verificacionLogin(email, password)
+        if user:
+            session['user'] = user[0]
+            print("Exito")
+            return redirect(url_for('perfil'))
+        else:
+            print("Datos Iconrrector :(  Email o contraseña.")
 
-            if user:
-                session['user'] = user[0]  
-                return redirect(url_for('perfil'))  # Redirige al perfil si es exitoso
-            else:
-                flash("Email o contraseña incorrectos.")  # Mensaje de error si no se encuentra el usuario
+    return render_template('index.html')
+    
+@app.route('/NuevaCuenta', methods=['POST'])
+def NuevaCuenta():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        email = request.form['email']
+        password = request.form['password']
 
-            cursor.close()
-            connection.close()
+        user = nueva_Cuenta(nombre, email, password)
 
-        except Exception as e:
-            print(f"Error al conectar con la base de datos :(  : {e}")
-            flash("Hubo un error al procesar tu solicitud.")
+        if user:
+            flash("Cuenta creada exitosamente! Ahora puedes iniciar sesión.", "success")
+            return redirect(url_for('index'))
+        else:
+            flash("Error al crear la cuenta. Intenta nuevamente.", "error")
+            return redirect(url_for('index'))
 
-    return render_template('index.html')  # Muestra el formulario de login
+    return render_template('index.html')
+
+
 
 @app.route('/logout')
 def logout():
