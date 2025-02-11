@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello World</title>
+  <link rel="ICON" href="../assets/icono.png">
+
+
+  <link rel="stylesheet" href="../static/css/style.css">
+
+</head>
+
+<body>
+
+
+
+  <div class="container" id="container">
+    <div class="form-container sign-up-container">
+      <form action="#">
+        <h1>Crear Cuenta</h1>
+
+        <input type="text" placeholder="Name" />
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <button>Crear Cuenta</button>
+      </form>
+    </div>
+    <div class="form-container sign-in-container">
+      <form action="/login" method="post">
+        <h1>Iniciar Session</h1>
+
+
+        <input type="email" name="email" placeholder="Email" />
+        <input type="password" name="password" placeholder="Password" />
+        <a href="#">Olvidaste tu contraseña?</a>
+        <button>Iniciar session</button>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>¡Bienvenido de nuevo!</h1>
+          <p>Para mantenerse conectado con nosotros, inicie sesión con su información personal.</p>
+          <button class="ghost" id="signIn">Iniciar Session</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hola, Amigo!</h1>
+          <p>Ingresa tus datos personales y comenzamos a trabajar</p>
+          <button class="ghost" id="signUp">Crear Cuenta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script src="../static/js/login.js"></script>
+</body>
+
+</html>
