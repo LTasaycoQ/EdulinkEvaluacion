@@ -27,7 +27,7 @@ body {
 }
 
 #content {
-    margin-left: 20px; 
+    margin-left: 15px; 
 }
 
 a {
@@ -58,6 +58,13 @@ table{
     gap: 48px;
 }
 
+.tituloContactosLista{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    margin-bottom: 40px;
+
+}
 .header_toggle {
     color: var(--first-color);
     font-size: 1.5rem;
@@ -66,7 +73,6 @@ table{
 
 .header_img {
     
-    margin-left: -100px;
     display: flex;
     gap:10px;
    
@@ -180,8 +186,11 @@ table{
     }
 
     .header_img {
-        width: 100px;
-        height: 40px
+        width: 220px;
+        height: 40px;
+
+        display:flex;
+        align-items: center;
     }
 
   
@@ -204,11 +213,6 @@ table{
  
 }
 
-.tituloContactos{
-	margin-top: 58px;
-    margin-bottom: 40px;
-
-}
 
 
 .botones_acciones button{
