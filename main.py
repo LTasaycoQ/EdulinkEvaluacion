@@ -131,34 +131,9 @@ def NuevoContacto():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @app.route('/editar_contacto/<int:id>', methods=['GET', 'POST'])
 def editar_contacto(id):
     if request.method == 'POST':
-        # Obtener los nuevos datos del formulario
         nombre = request.form['nombre']
         apellidos = request.form['apellidos']
         direccion = request.form['direccion']
@@ -179,20 +154,13 @@ def editar_contacto(id):
 
 
 
-
-
-
-
-
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
 
-def main():
-    app.run(port=int(os.environ.get('PORT', 80)))
+
 
 
 if __name__ == "__main__":
-    app.run(port=5001)
-
+    app.run(host='0.0.0.0', port=5001)
