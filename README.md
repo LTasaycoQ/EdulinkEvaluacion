@@ -10,3 +10,4 @@ Previews should run automatically when starting a workspace.
 
 python main.py  v
 c
+n
