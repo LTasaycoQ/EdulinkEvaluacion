@@ -9,3 +9,4 @@ Previews should run automatically when starting a workspace.
 ## Comando para ejecutar
 
 python main.py  v
+c
